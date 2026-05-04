@@ -33,8 +33,8 @@ Diabets App - Dokumentacja Projektu
         Frontend: Bootstrap 5.3 + JavaScript (Vanilla) – responsywny interfejs użytkownika z dynamicznymi
          oknami Modal.
         
-        Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych od logiki
-         biznesowej widoków.
+        Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych od
+         logiki biznesowej widoków.
     
     Ciekawe Rozwiązania:
     
@@ -44,8 +44,8 @@ Diabets App - Dokumentacja Projektu
         Dynamiczna Agregacja LINQ: Użycie zaawansowanych zapytań LINQ do jednoczesnego pobierania ostatnich
          wyników i obliczania średnich kroczących bezpośrednio na silniku bazy danych.
         
-        Join-Table Relationships: Implementacja relacji wiele-do-wielu dla systemu znajomości z asynchroniczną
-         weryfikacją istnienia użytkownika.
+        Join-Table Relationships: Implementacja relacji wiele-do-wielu dla systemu znajomości z
+        asynchroniczną weryfikacją istnienia użytkownika.
 
 5. Instrukcja uruchomienia lokalnie
     Aby uruchomić projekt na własnym komputerze, upewnij się, że masz zainstalowane .NET 10 SDK.

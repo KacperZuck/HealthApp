@@ -30,19 +30,19 @@ Diabets App - Dokumentacja Projektu
         Database & ORM: Entity Framework Core z silnikiem SQLite. Wybór SQLite zapewnia lekkość i
          brak konieczności konfigurowania ciężkich serwerów bazodanowych przy starcie.
         
-        Frontend: Bootstrap 5.3 + JavaScript (Vanilla) – responsywny interfejs użytkownika z dynamicznymi
-         oknami Modal.
+        Frontend: Bootstrap 5.3 + JavaScript (Vanilla) – responsywny interfejs użytkownika z
+         dynamicznymi oknami Modal.
         
-        Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych od
-         logiki biznesowej widoków.
+        Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych
+         od logiki biznesowej widoków.
     
     Ciekawe Rozwiązania:
     
         Schemeful Same-Site Cookies: Zastosowanie zaawansowanej konfiguracji ciasteczek Antiforgery,
          zapewniającej bezpieczną komunikację HTTPS nawet w środowisku deweloperskim.
         
-        Dynamiczna Agregacja LINQ: Użycie zaawansowanych zapytań LINQ do jednoczesnego pobierania ostatnich
-         wyników i obliczania średnich kroczących bezpośrednio na silniku bazy danych.
+        Dynamiczna Agregacja LINQ: Użycie zaawansowanych zapytań LINQ do jednoczesnego pobierania
+         ostatnich wyników i obliczania średnich kroczących bezpośrednio na silniku bazy danych.
         
         Join-Table Relationships: Implementacja relacji wiele-do-wielu dla systemu znajomości z
         asynchroniczną weryfikacją istnienia użytkownika.

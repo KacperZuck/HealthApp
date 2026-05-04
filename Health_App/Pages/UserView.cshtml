@@ -1,0 +1,175 @@
+﻿@page "/data"
+@model Health_App.Pages.UserViewModel
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Panel Użytkownika";
+    var currentUserIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    Guid currentUserId = Guid.Empty;
+    Guid.TryParse(currentUserIdStr, out currentUserId);
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show container mt-3" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show container mt-3" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">Cześć, <strong>@Model._currentUserName</strong>!</span>
+
+        <div class="ms-auto d-flex align-items-center">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                    Opcje
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                    <li><a class="dropdown-item" asp-page="/EditProfile">Zmień dane</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item text-danger" asp-page="/Logout">Wyloguj</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid px-4">
+    <table class="table table-hover border shadow-sm">
+        <thead class="table-light text-center">
+            <tr>
+                <th rowspan="2" class="align-middle">
+                    <button type="button" class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="modal" data-bs-target="#addFriendModal">
+                        + Dodaj znajomego
+                    </button>
+                </th>
+                @foreach (var mName in Model._availableMeasurements)
+                {
+                    <th colspan="2" class="border-start">
+                        <div class="d-flex justify-content-between align-items-center px-2">
+                            <span>@mName</span>
+                            <button type="button" class="btn btn-sm btn-success py-0 px-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addMeasurementModal"
+                                    data-bs-mname="@mName">
+                                +
+                            </button>
+                        </div>
+                    </th>
+                }
+            </tr>
+            <tr>
+                @foreach (var mName in Model._availableMeasurements)
+                {
+                    <th class="border-start" style="font-size: 0.85rem;">Ostatni</th>
+                    <th style="font-size: 0.85rem;">Średnia (30)</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model._usersList)
+            {
+                <tr class="@(user.id == currentUserId ? "table-info" : "")">
+                    <td class="fw-bold">
+                        @(user.id == currentUserId ? "Ja" : user.name)
+                    </td>
+                    @foreach (var name in Model._availableMeasurements)
+                    {
+                        <td class="text-center border-start">
+                            @(user.measurements.ContainsKey(name) ? user.measurements[name].value : "-")
+                        </td>
+                        <td class="text-center">
+                            @(user.measurements.ContainsKey(name) ? user.measurements[name].avg.ToString("F2") : "-")
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@* DODAWANIE ZNAJOMEGO *@
+<div class="modal fade" id="addFriendModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="AddFriend">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Dodaj znajomego</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="friendName" class="form-label">Imię znajomego</label>
+                        <input type="text" class="form-control" id="friendName" name="friendName" placeholder="Wpisz imię..." required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="friendEmail" class="form-label">Adres e-mail</label>
+                        <input type="email" class="form-control" id="friendEmail" name="friendEmail" placeholder="wpisz@email.pl" required>
+                    </div>
+                    <div class="form-text text-muted">
+                        Aby dodać znajomego, oba pola muszą zgadzać się z danymi w systemie.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-primary">Dodaj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@*  DODAWANIE POMIARU *@
+<div class="modal fade" id="addMeasurementModal" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form method="post" asp-page-handler="AddMeasurement">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="modalTitle">Nowy pomiar: <span id="displayMeasurementName"></span></h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="inputMeasurementName" name="MeasurementName" />
+
+                    <div class="mb-3">
+                        <label for="measurementValue" class="form-label">Wartość pomiaru</label>
+                        <input type="number" class="form-control form-control-lg" id="measurementValue" name="Value" placeholder="Wpisz wynik..." required step="any">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Anuluj</button>
+                    <button type="submit" class="btn btn-primary">Zapisz pomiar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var addModal = document.getElementById('addMeasurementModal');
+        addModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var mName = button.getAttribute('data-bs-mname');
+
+            var modalTitleSpan = addModal.querySelector('#displayMeasurementName');
+            var modalHiddenInput = addModal.querySelector('#inputMeasurementName');
+            var modalValueInput = addModal.querySelector('#measurementValue');
+
+            modalTitleSpan.textContent = mName;
+            modalHiddenInput.value = mName;
+
+            modalValueInput.value = '';
+            setTimeout(() => modalValueInput.focus(), 500);
+        });
+    </script>
+}

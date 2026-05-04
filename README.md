@@ -36,7 +36,7 @@ Diabets App - Dokumentacja Projektu
         Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych
          od logiki biznesowej widoków.
     
-    Ciekawe Rozwiązania:
+    Inne Rozwiązania:
     
         Schemeful Same-Site Cookies: Zastosowanie zaawansowanej konfiguracji ciasteczek Antiforgery,
          zapewniającej bezpieczną komunikację HTTPS nawet w środowisku deweloperskim.

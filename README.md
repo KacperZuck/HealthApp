@@ -5,18 +5,20 @@ Diabets App - Dokumentacja Projektu
     
     Główne Funkcjonalności:
     
-        Monitorowanie Pomiarów: Możliwość dodawania różnorodnych typów danych (np. waga, glukoza, ciśnienie)
-       z automatycznym zapisem czasu.
+        Monitorowanie Pomiarów: Możliwość dodawania różnorodnych typów danych (np. waga, glukoza,
+       ciśnienie) z automatycznym zapisem czasu.
         
-        Analiza Statystyczna: Dynamiczne wyliczanie średniej z ostatnich 30 pomiarów dla każdego parametru,
-       co pozwala na szybką ocenę trendów zdrowotnych.
+        Analiza Statystyczna: Dynamiczne wyliczanie średniej z ostatnich 30 pomiarów dla każdego
+         parametru, co pozwala na szybką ocenę trendów zdrowotnych.
         
-        Panel Społecznościowy: System znajomości pozwalający na dodawanie innych użytkowników i wzajemne śledzenie postępów.
+        Panel Społecznościowy: System znajomości pozwalający na dodawanie innych użytkowników i
+         wzajemne śledzenie postępów.
         
-        Dynamiczny Dashboard: Tabela wyników, która automatycznie dostosowuje kolumny do rodzajów pomiarów istniejących
-       w bazie danych.
+        Dynamiczny Dashboard: Tabela wyników, która automatycznie dostosowuje kolumny do rodzajów
+         pomiarów istniejących w bazie danych.
         
-        Bezpieczeństwo danych: Pełna autoryzacja użytkowników oraz zabezpieczenia przeciwko atakom CSRF (Antiforgery).
+        Bezpieczeństwo danych: Pełna autoryzacja użytkowników oraz zabezpieczenia przeciwko atakom
+         CSRF (Antiforgery).
 
 3. Opis Techniczny
     Projekt został zbudowany w nowoczesnej architekturze opartej na ekosystemie .NET, z naciskiem na separację logiki i wysoką wydajność.
@@ -25,23 +27,25 @@ Diabets App - Dokumentacja Projektu
     
         Backend: ASP.NET Core 10.0 (Razor Pages) – zapewniający szybkość działania i skalowalność.
         
-        Database & ORM: Entity Framework Core z silnikiem SQLite. Wybór SQLite zapewnia lekkość i brak konieczności
-       konfigurowania ciężkich serwerów bazodanowych przy starcie.
+        Database & ORM: Entity Framework Core z silnikiem SQLite. Wybór SQLite zapewnia lekkość i
+         brak konieczności konfigurowania ciężkich serwerów bazodanowych przy starcie.
         
-        Frontend: Bootstrap 5.3 + JavaScript (Vanilla) – responsywny interfejs użytkownika z dynamicznymi oknami Modal.
+        Frontend: Bootstrap 5.3 + JavaScript (Vanilla) – responsywny interfejs użytkownika z dynamicznymi
+         oknami Modal.
         
-        Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych od logiki biznesowej widoków.
+        Architektura: Wzorzec Repository Pattern oraz Service Layer, oddzielające dostęp do bazy danych od logiki
+         biznesowej widoków.
     
     Ciekawe Rozwiązania:
     
-        Schemeful Same-Site Cookies: Zastosowanie zaawansowanej konfiguracji ciasteczek Antiforgery, zapewniającej bezpieczną
-        komunikację HTTPS nawet w środowisku deweloperskim.
+        Schemeful Same-Site Cookies: Zastosowanie zaawansowanej konfiguracji ciasteczek Antiforgery,
+         zapewniającej bezpieczną komunikację HTTPS nawet w środowisku deweloperskim.
         
-        Dynamiczna Agregacja LINQ: Użycie zaawansowanych zapytań LINQ do jednoczesnego pobierania ostatnich wyników i obliczania
-       średnich kroczących bezpośrednio na silniku bazy danych.
+        Dynamiczna Agregacja LINQ: Użycie zaawansowanych zapytań LINQ do jednoczesnego pobierania ostatnich
+         wyników i obliczania średnich kroczących bezpośrednio na silniku bazy danych.
         
-        Join-Table Relationships: Implementacja relacji wiele-do-wielu dla systemu znajomości z asynchroniczną weryfikacją istnienia
-       użytkownika.
+        Join-Table Relationships: Implementacja relacji wiele-do-wielu dla systemu znajomości z asynchroniczną
+         weryfikacją istnienia użytkownika.
 
 5. Instrukcja uruchomienia lokalnie
     Aby uruchomić projekt na własnym komputerze, upewnij się, że masz zainstalowane .NET 10 SDK.
